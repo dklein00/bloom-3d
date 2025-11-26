@@ -27,10 +27,10 @@ export const BlendHardLightShader = {
     }
 
     void main() {
-      vec4 baseColor = texture2D(tDiffuse, vUv);
-      vec4 blendColor = texture2D(uTexture, vUv);
-      vec4 hardLightColor = vec4(blendHardLight(baseColor.rgb, blendColor.rgb), 1.0);
-      gl_FragColor = hardLightColor * mix + baseColor * (1.0 - mix);
+      vec4 color = texture2D(tDiffuse, vUv);
+      vec4 blend = texture2D(uTexture, vUv);
+      vec4 hardLightColor = vec4(blendHardLight(color.rgb, blend.rgb), 1.0);
+      gl_FragColor = hardLightColor * mix + color * (1.0 - mix);
     }
   `
 };
