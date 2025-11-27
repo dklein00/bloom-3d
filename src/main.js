@@ -4,7 +4,7 @@ import { camera, onWindowResize } from './components/camera.js';
 import { renderer } from './components/renderer.js';
 import { initLogo, animateLogo } from './components/logo.js';
 import { setupMouseControls } from './components/controls.js';
-import { composer } from './components/postprocessing.js';
+import { composer, animatePostProcessing } from './components/postprocessing.js';
 
 initLogo(scene);
 setupMouseControls();
@@ -12,6 +12,7 @@ setupMouseControls();
 function animate() {
   requestAnimationFrame(animate);
   animateLogo();
+  animatePostProcessing();
   composer.render();
 }
 
