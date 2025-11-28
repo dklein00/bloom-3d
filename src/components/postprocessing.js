@@ -50,7 +50,7 @@ export function updateRendererOnResize(){
   grainPass.uniforms.uResolution.value = res;
   renderer.setSize(window.innerWidth, window.innerHeight);
   composer.setSize(window.innerWidth, window.innerHeight);
-};
+}
 
 const clock = new THREE.Clock();
 export function animatePostProcessing(){
@@ -58,4 +58,4 @@ export function animatePostProcessing(){
   const random = Math.random();
   hBlur.uniforms.uRadius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
   vBlur.uniforms.uRadius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
-};
+}

@@ -35,4 +35,4 @@ export const GaussianBlurShader = {
       gl_FragColor = color / total;
     }
   `
-};
+}

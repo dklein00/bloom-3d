@@ -38,4 +38,4 @@ export const BlendHardLightShader = {
       gl_FragColor = hardLightColor * uMix + color * (1.0 - uMix);
     }
   `
-};
+}
