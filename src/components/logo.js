@@ -31,8 +31,9 @@ export function initLogo(sceneRef) {
 }
 
 export function animateLogo() {
+  const dt = clock.getDelta();
   bloomOrbit.rotation.y += velocity;
-  velocity *= 0.1 ** clock.getDelta();
+  velocity *= 0.1 ** dt;
   if (Math.abs(velocity) < 0.0001) velocity = 0;
 
   bloomOrbit.children.forEach(sphere => {

@@ -24,8 +24,8 @@ composer.addPass(bloomPass);
 
 const hBlur = new ShaderPass(GaussianBlurShader);
 const vBlur = new ShaderPass(GaussianBlurShader);
-hBlur.uniforms.direction.value = new THREE.Vector2(1.0, 0.0);
-vBlur.uniforms.direction.value = new THREE.Vector2(0.0, 1.0);
+hBlur.uniforms.uDirection.value = new THREE.Vector2(1.0, 0.0);
+vBlur.uniforms.uDirection.value = new THREE.Vector2(0.0, 1.0);
 composer.addPass(hBlur);
 composer.addPass(vBlur);
 
@@ -35,15 +35,27 @@ composer.addPass(smaaPass);
 const grainTexture = new THREE.TextureLoader().load(grainImg, () => {
     grainTexture.needsUpdate = true;
 });
+grainTexture.wrapS = THREE.RepeatWrapping;
+grainTexture.wrapT = THREE.RepeatWrapping;
 const grainPass = new ShaderPass(BlendHardLightShader);
 grainPass.uniforms.uTexture.value = grainTexture;
-grainPass.uniforms.mix.value = 0.8;
+grainPass.uniforms.uTextureSize.value = new THREE.Vector2(1920.0,1080.0);
+grainPass.uniforms.uMix.value = 0.7;
 composer.addPass(grainPass);
+
+export function updateRendererOnResize(){
+  const res = new THREE.Vector2(window.innerWidth, window.innerHeight);
+  hBlur.uniforms.uResolution.value = res;
+  vBlur.uniforms.uResolution.value = res;
+  grainPass.uniforms.uResolution.value = res;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+};
 
 const clock = new THREE.Clock();
 export function animatePostProcessing(){
   bloomPass.strength = 0.75 + (Math.sin(clock.getElapsedTime() / 2) * 0.025);
   const random = Math.random();
-  hBlur.uniforms.radius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
-  vBlur.uniforms.radius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
+  hBlur.uniforms.uRadius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
+  vBlur.uniforms.uRadius.value = 1.5 + (random > 0.98 ? 1.5 : 0);
 };
