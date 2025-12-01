@@ -15,6 +15,10 @@ export function setupMouseControls() {
     if (!isDragging) return;
     const deltaY = (e.clientY - previousMouseY) / window.innerHeight;
     previousMouseY = e.clientY;
-    addVelocity(deltaY * 0.1);
+    if(e.clientX < window.innerWidth/2) {
+      addVelocity(deltaY * 0.1);
+    } else {
+      addVelocity(deltaY * -0.1);
+    }
   });
 }
